@@ -1,0 +1,42 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Todo</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap" rel="stylesheet" />
+    <script src="https://kit.fontawesome.com/cb792c0850.js" crossorigin="anonymous"></script>
+</head>
+
+<body class="flex items-center justify-center min-h-screen bg-gray-100 font-[Poppins]">
+    <div class="w-full max-w-md p-6 bg-white shadow-lg rounded-lg">
+        <h1 class="text-xl font-bold text-center text-gray-800">Hello {{user}}</h1>
+        <div class="flex justify-between items-center mt-4">
+            <h2 class="text-lg font-semibold text-gray-700">Get Things Done?</h2>
+            <a href="{% url 'signout' %}" class="text-red-500 hover:text-red-700"><i class="fa-solid fa-right-from-bracket"></i></a>
+        </div>
+
+        <form method="post" class="mt-4 space-y-3">
+            {% csrf_token %}
+            <input type="text" name="title" required class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-400" placeholder="What is the task today?">
+            <input class="w-full py-2 font-semibold text-white bg-purple-600 rounded-lg cursor-pointer hover:bg-pink-700" type="submit" value="Add Task">
+        </form>
+
+        {% for todo in res %}
+        <div class="flex items-center justify-between p-4 mt-4 rounded-lg shadow-md {% if todo.status %}bg-green-100{% else %}bg-red-100{% endif %}">
+            <p class="flex-1 text-gray-800 {% if todo.status %}line-through{% endif %}">{{todo.title}}</p>
+            <div class="flex space-x-3">
+                <a href="/edit_todo/{{todo.srno}}" class="text-purple-500 hover:text-pink-700"><i class="fa-solid fa-pen-to-square"></i></a>
+                <a href="/delete_todo/{{todo.srno}}" class="text-red-500 hover:text-red-700"><i class="fa-solid fa-trash"></i></a>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    <script src="{% static 'js/todo.js' %}"></script>
+</body>
+
+</html>
