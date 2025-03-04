@@ -31,17 +31,12 @@ source venv/bin/activate  # For Mac/Linux
 venv\Scripts\activate  # For Windows
 ```
 
-### 3️⃣ Install Dependencies
-```bash
-pip install -r requirements.txt
-```
-
-### 4️⃣ Apply Migrations
+### 3️⃣ Apply Migrations
 ```bash
 python manage.py migrate
 ```
 
-### 5️⃣ Run the Server
+### Run the Server
 ```bash
 python manage.py runserver
 ```
